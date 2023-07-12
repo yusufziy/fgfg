@@ -1,0 +1,99 @@
+# ===========================================================================
+# Plex Lisansları Yapılandırması
+# Herhangi bir sorun bulursanız, destek almak isterseniz veya bot için bir öneriniz varsa, destek sunucusuna katılın ve bir talep oluşturun,
+# https://discord.gg/eRaeJdTsPY
+# Belgeler: https://docs.plexdevelopment.net
+# ===========================================================================
+
+# ===========================================================================
+# BOT BİLGİSİ
+# Boş bırakmamanız gerekiyor!
+# ===========================================================================
+Token: "BOT_TOKEN" # Nasıl alacağınızı bilmiyorsanız, belgelerimize bakın: https://docs.plexdevelopment.net
+BotName: "Plex Lisansları"
+GuildID: "SUNUCU_ID" # Bu, sunucunuzun kimlik numarasıdır. Sunucu simgesine sağ tıklayın ve Kimliği Kopyala'yı seçin
+EmbedColors: "#de72e2" # Hex renk kodu!
+LogCommands: false # Etkinleştirildiyse, tüm komutları terminalde kaydeder
+Statistics: true # Bot başladığında istatistikleri terminalde gösterilsin mi? (Bu, istatistik komutunu veya başka bir şeyi etkilemez)
+MongoURI: "MONGO_BAĞLANTI" # MongoDB Bağlantı Dizisi, Nasıl alınır: https://docs.plexdevelopment.net/plex-licenses/creating-a-mongodb-cluster
+
+# ===========================================================================
+# BOT ETKİNLİĞİ
+# ===========================================================================
+BotActivitySettings:
+  Enabled: true
+  Type: "WATCHING" # IZLIYOR, OYNUYOR, YARIŞIYOR
+  Interval: 30 # Durum değişiklikleri arasındaki süre (saniye cinsinden), sınırlamalara takılmamak için 20-30 saniyenin üzerinde tutmanız önerilir
+  Durumlar: # Geçerli Değişkenler: {total-users}, {total-channels}, {total-licenses}, {total-requests}
+    - "{total-licenses} lisans"
+    - "{total-users} kullanıcı"
+
+# ===========================================================================
+# LİSANS YAPILANDIRMASI
+# ===========================================================================
+WebServerSettings: 
+  Port: 3000
+  ApiKey: "G1gje4OBpsAr5gpkqvEgAiRHdumxIGUo" # Kimlik doğrulaması için kullanılacak API Anahtarı, en az 32 karakter içeren bir şifre oluşturmanızı öneririz
+
+LicenseSettings:
+  IPCap: 0 # Lisanslara IP Sınırlaması ayarlanacak mı? (Devre dışı bırakmak için 0 olarak ayarlayın)
+  HWIDCap: 0 # Lisanslara HWID Sınırlaması ayarlanacak mı? (Devre dışı bırakmak için 0 olarak ayarlayın)
+  RequireBuiltByBitUserID: true # Lisans oluştururken kullanıcının BuiltByBit kullanıcı kimliği belirtilmesi gerekiyor mu? Bu, kaynaklarınız için hangi kullanıcıların bir lisans anahtarına sahip olduğunu takip etmek için kullanışlıdır, ayrıca sızan lisansları/bbb profilini devre dışı bırakmayı ve bulmayı kolaylaştırır
+  GiveCustomerRole: true # Bot, lisans anahtarı alan kullanıcılara otomatik olarak müşteri rolleri vermelidir mi? (Müşteri rolleri, bir ürün oluşturulurken belirtilir)
+  Characters: "ABCDEFGHIJKLMNIOPQRSTUVWXYZ0123456789" # Bir lisans anahtarında yer alabilecek karakterler
+
+RatelimitSettings:
+  Enabled: true # Etkinleştirilmesi önerilir
+  MaxRequests: 15 # Belirtilen süre içindeki maksimum istek sayısı
+  Time: 3 # Sadece dakika cinsinden süre
+
+WebhookLogsSettings: # Webhook günlükleri etkinleştirilsin mi? (lisans/ürün komutları, başarılı/başarısız lisans kimlik doğrulama vb.)
+  Enabled: true
+  AuthenticationWebhookURL: "WEBHOOK_URL" # Devre dışı bırakmak için boş bırakın
+  CommandsWebhookURL: "WEBHOOK_URL" # Devre dışı bırakmak için boş bırakın
+# ===========================================================================
+# KOMUT YAPILANDIRMASI
+# ===========================================================================
+# Tüm komutları kullanmak için gerekli izinleri yapılandırın (Sadece ROL KİMLİKLERİ çalışır!)
+
+# /getlicense
+getLicense: # Kullanıcılar bu komutu kendi lisans anahtarlarını görmek için kullanabilir, Herkesin varsayılan olarak bu komuta erişimi vardır
+  Enabled: true
+
+# /license create
+license_create: # Lisans anahtarları oluşturma komutu
+  Enabled: true
+  AllowedRoles: ["ROL_KİMLİK"] # Birden çok ekleyebilirsiniz
+
+# /license delete
+license_delete: # Lisans anahtarlarını silme komutu
+  Enabled: true
+  AllowedRoles: ["ROL_KİMLİK"] # Birden çok ekleyebilirsiniz
+
+# /license list
+license_list: # Tüm lisans anahtarlarını listeleme komutu
+  Enabled: true
+  AllowedRoles: ["ROL_KİMLİK"] # Birden çok ekleyebilirsiniz
+
+# /license get
+license_get: # Belirli bir lisans anahtarını alma komutu
+  Enabled: true
+  AllowedRoles: ["ROL_KİMLİK"] # Birden çok ekleyebilirsiniz
+
+# /license cleardata
+license_cleardata: # Lisans anahtarlarından HWID/IP verilerini temizleme komutu
+  Enabled: true
+  AllowedRoles: ["ROL_KİMLİK"] # Birden çok ekleyebilirsiniz
+
+
+
+
+# /product create
+product_create:
+  Enabled: true
+  AllowedRoles: ["ROL_KİMLİK"] # Birden çok ekleyebilirsiniz
+
+# /product delete
+product_delete:
+  Enabled: true
+  Allowed
